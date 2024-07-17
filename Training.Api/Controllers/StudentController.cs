@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Training.Api.Models;
 using Training.API.Controllers;
 using Training.Application.Services;
 using Training.Domain.Entities;

@@ -10,8 +10,8 @@ namespace Training.Domain.Profiles
             CreateMap<Models.CourseDTO, Entities.Course>();
             CreateMap<Entities.Student, Models.StudentDTO>();
             CreateMap<Models.StudentDTO, Entities.Student>();
-            CreateMap<Entities.Coach, Models.CourseDTO>();
-            CreateMap<Models.CourseDTO, Entities.Coach>();
+            CreateMap<Entities.Coach, Models.CoachDTO>();
+            CreateMap<Models.CoachDTO, Entities.Coach>();
         }
     }
 }
