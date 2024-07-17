@@ -62,7 +62,7 @@ namespace Training.Api.Controllers
             {
                 _logger.LogCritical("Este curso no existe, no se puede borrar", ex);
                 throw new ApplicationException("Test para probar si funciona el middleware");
-                return StatusCode(500, "Se ha encontrado un problema con tu llamada!");
+                //return StatusCode(500, "Se ha encontrado un problema con tu llamada!");
             }
 
         }

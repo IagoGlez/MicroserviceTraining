@@ -4,6 +4,7 @@ using Training.API.Controllers;
 using Training.Application.Services;
 using Training.Domain.Entities;
 using Training.Domain.Models;
+using Training.Persistence.Repositories;
 
 namespace Training.Api.Controllers
 {
@@ -12,20 +13,20 @@ namespace Training.Api.Controllers
     public class CoachController : Controller
     {
         private readonly ILogger<CoachController> _logger;
-        private ICoachRepository _coachRepository;
+        private ICommonRepository<Coach> _commonRepository;
         private readonly IMapper _mapper;
 
-        public CoachController(ILogger<CoachController> logger, ICoachRepository coachRepository, IMapper mapper)
+        public CoachController(ILogger<CoachController> logger, ICommonRepository<Coach> commonRepository, IMapper mapper)
         {
             _logger = logger;
-            _coachRepository = coachRepository;
+            _commonRepository = commonRepository;
             _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CoachDTO>>> GetAllCoaches()
         {
-            var cursos = await _coachRepository.GetAllCoaches();
+            var cursos = await _commonRepository.GetAll();
 
             return Ok(_mapper.Map<IEnumerable<CoachDTO>>(cursos));
         }
@@ -34,7 +35,7 @@ namespace Training.Api.Controllers
         {
             try
             {
-                var coach = await _coachRepository.GetCoachById(id);
+                var coach = await _commonRepository.GetById(id);
                 if (coach == null)
                 {
                     _logger.LogInformation("Este curso no existe!");
@@ -55,14 +56,13 @@ namespace Training.Api.Controllers
         {
             try
             {
-                _coachRepository.DeleteCoach(id);
+                _commonRepository.Delete(id);
                 return NoContent();
             }
             catch (Exception ex)
             {
                 _logger.LogCritical("Este profesor no existe, no se puede borrar", ex);
                 throw new ApplicationException("Test para probar si funciona el middleware");
-                return StatusCode(500, "Se ha encontrado un problema con tu llamada!");
             }
 
         }
@@ -88,7 +88,7 @@ namespace Training.Api.Controllers
                     CommunityName = coachDTO.CommunityName
                 };
 
-                await _coachRepository.CreateCoach(coach);
+                await _commonRepository.Create(coach);
 
                 return Ok(_mapper.Map<CoachDTO>(coach));
 
@@ -122,7 +122,7 @@ namespace Training.Api.Controllers
                     CommunityName = coachDTO.CommunityName
                 };
 
-                await _coachRepository.UpdateCoach(coach);
+                await _commonRepository.Update(coach);
 
                 return Ok(_mapper.Map<CoachDTO>(coach));
 

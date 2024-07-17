@@ -82,7 +82,7 @@ namespace Training.API.Controllers
                 var course = new Course
                 {
                     Id = Guid.NewGuid(),
-                    Name = courseDTO.Name,
+                    Name = courseDTO.NameCourse,
                     MaxNumberOfStudents = courseDTO.MaxNumberOfStudents,
                     StartDate = courseDTO.StartDate
                 };
@@ -114,7 +114,7 @@ namespace Training.API.Controllers
                 var course = new Course
                 {
                     Id = courseDTO.Id,
-                    Name = courseDTO.Name,
+                    Name = courseDTO.NameCourse,
                     MaxNumberOfStudents = courseDTO.MaxNumberOfStudents,
                     StartDate = courseDTO.StartDate
                 };

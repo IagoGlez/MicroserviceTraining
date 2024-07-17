@@ -9,6 +9,9 @@ namespace Training.Application.Services
         DbSet<Course> Courses { get; set; }
         DbSet<Student> Students { get; set; }
         DbSet<Coach> Coaches { get; set; }
+
+        void Dispose();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+        DbSet<T> Set<T>() where T : class;
     }
 }
